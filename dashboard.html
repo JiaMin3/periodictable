@@ -4,210 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Data Visualization Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: #0f172a;
-            color: #e2e8f0;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #334155;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #667eea;
-        }
-
-        .controls {
-            padding: 20px 40px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            background: #1e293b;
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 10px;
-        }
-
-        .view-btn {
-            background: #334155;
-            color: #cbd5e1;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .view-btn:hover {
-            background: #475569;
-        }
-
-        .view-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .filters {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        select, input {
-            background: #334155;
-            color: #e2e8f0;
-            border: 1px solid #475569;
-            padding: 8px 15px;
-            border-radius: 6px;
-        }
-
-        .container {
-            display: flex;
-            height: calc(100vh - 160px);
-        }
-
-        #visualization {
-            flex: 1;
-            position: relative;
-        }
-
-        .info-panel {
-            width: 300px;
-            background: #1e293b;
-            padding: 20px;
-            overflow-y: auto;
-            border-left: 1px solid #334155;
-        }
-
-        .data-item {
-            background: #334155;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .data-item:hover {
-            transform: translateX(5px);
-            background: #475569;
-        }
-
-        .data-item.selected {
-            border-left: 4px solid #667eea;
-            background: #475569;
-        }
-
-        .data-item img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .net-worth {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .net-worth.red {
-            color: #ef4444;
-        }
-
-        .net-worth.orange {
-            color: #f97316;
-        }
-
-        .net-worth.green {
-            color: #22c55e;
-        }
-
-        .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #334155;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .signout-btn {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .signout-btn:hover {
-            background: #b91c1c;
-        }
-    </style>
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <link rel="stylesheet" href="dashboard.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
 </head>
 <body>
+    <!-- Info Header (Like Periodic Table Example) -->
+    <div id="info">
+        <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - data visualization table
+    </div>
+    
+    <!-- Main Header -->
     <div class="header">
         <div class="logo">
             <h1>📊 DataVis 3D</h1>
@@ -215,7 +28,7 @@
         </div>
         
         <div class="user-info">
-            <img id="userAvatar" class="user-pic" src="" alt="User">
+            <img id="userAvatar" class="user-pic" src="" alt="User Profile">
             <div>
                 <div id="userName">Guest</div>
                 <button onclick="signOut()" class="signout-btn">Sign Out</button>
@@ -223,16 +36,25 @@
         </div>
     </div>
 
+    <!-- Controls Section -->
     <div class="controls">
         <div class="view-toggle">
-            <button class="view-btn active" onclick="changeView('table')">TABLE</button>
-            <button class="view-btn" onclick="changeView('sphere')">SPHERE</button>
-            <button class="view-btn" onclick="changeView('helix')">HELIX</button>
-            <button class="view-btn" onclick="changeView('grid')">GRID</button>
+            <button class="view-btn active" data-view="table" title="20×10 Grid Layout">
+                TABLE
+            </button>
+            <button class="view-btn" data-view="sphere" title="Spherical Arrangement">
+                SPHERE
+            </button>
+            <button class="view-btn" data-view="helix" title="Double Helix Arrangement">
+                HELIX
+            </button>
+            <button class="view-btn" data-view="grid" title="5×4×10 3D Grid">
+                GRID
+            </button>
         </div>
         
         <div class="filters">
-            <select id="countryFilter">
+            <select id="countryFilter" title="Filter by Country">
                 <option value="">All Countries</option>
                 <option value="MY">Malaysia</option>
                 <option value="IN">India</option>
@@ -240,7 +62,7 @@
                 <option value="US">USA</option>
             </select>
             
-            <select id="interestFilter">
+            <select id="interestFilter" title="Filter by Interest">
                 <option value="">All Interests</option>
                 <option value="Writing">Writing</option>
                 <option value="Cooking">Cooking</option>
@@ -250,338 +72,33 @@
                 <option value="Traveling">Traveling</option>
             </select>
             
-            <input type="text" id="searchInput" placeholder="Search names...">
+            <input type="text" id="searchInput" placeholder="Search names..." title="Search by name">
         </div>
     </div>
 
+    <!-- Main Content Area -->
     <div class="container">
+        <!-- 3D Visualization Canvas -->
         <div id="visualization">
             <div class="loading" id="loading">
                 <div class="spinner"></div>
                 <p>Loading 3D Visualization...</p>
                 <p id="dataStatus">Fetching data from Google Sheets...</p>
             </div>
+            <!-- CSS3D Renderer will be inserted here -->
         </div>
         
+        <!-- Sidebar Info Panel -->
         <div class="info-panel" id="infoPanel">
             <h3>Data Details</h3>
             <p>Select an element to view details</p>
-            <div id="dataList"></div>
+            <div id="dataList">
+                <!-- Data items will be inserted here -->
+            </div>
         </div>
     </div>
 
-    <script>
-        // Configuration - UPDATE THESE VALUES
-        const GOOGLE_SHEET_ID = 'https://docs.google.com/spreadsheets/d/1lSHJRdMuzj1oY1efmJITbbAUj71RFmHlSNnOXaV06IY/edit?gid=1899907779#gid=1899907779'; // From step 3
-        const API_KEY = 'AIzaSyDp-8S2A7JrIt4p5WljxSb_03uoW5UNiTo'; // From step 4
-        const SHEET_NAME = 'Sheet1'; // Default sheet name
-        
-        // Global variables
-        let userData = null;
-        let sheetData = [];
-        let currentView = 'table';
-        let scene, camera, renderer, objects = [];
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is logged in
-            const storedUser = localStorage.getItem('userData');
-            if (!storedUser) {
-                window.location.href = 'index.html'; // Redirect to login
-                return;
-            }
-            
-            userData = JSON.parse(storedUser);
-            updateUserDisplay();
-            
-            // Initialize 3D scene
-            init3DScene();
-            
-            // Load data from Google Sheets
-            loadGoogleSheetData();
-            
-            // Setup event listeners
-            document.getElementById('searchInput').addEventListener('input', filterData);
-            document.getElementById('countryFilter').addEventListener('change', filterData);
-            document.getElementById('interestFilter').addEventListener('change', filterData);
-        });
-        
-        function updateUserDisplay() {
-            if (userData) {
-                document.getElementById('userName').textContent = userData.name;
-                document.getElementById('userAvatar').src = userData.picture;
-            }
-        }
-        
-        function signOut() {
-            localStorage.removeItem('userData');
-            window.location.href = 'index.html';
-        }
-        
-        async function loadGoogleSheetData() {
-            const loading = document.getElementById('loading');
-            const status = document.getElementById('dataStatus');
-            
-            try {
-                status.textContent = 'Fetching data from Google Sheets...';
-                
-                // Google Sheets API URL
-                // Using A1 notation to get all data
-                const range = 'A:F'; // Columns A to F (Name to Net Worth)
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${SHEET_NAME}!${range}?key=${API_KEY}`;
-                
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (!data.values) {
-                    throw new Error('No data found in sheet');
-                }
-                
-                // Convert rows to objects
-                const headers = data.values[0];
-                sheetData = data.values.slice(1).map(row => {
-                    const obj = {};
-                    headers.forEach((header, index) => {
-                        // Clean up header names (remove extra spaces)
-                        const cleanHeader = header.trim();
-                        obj[cleanHeader] = row[index] || '';
-                        
-                        // Parse Net Worth to number
-                        if (cleanHeader === 'Net Worth') {
-                            const netWorthStr = row[index] || '$0';
-                            const cleanNumber = netWorthStr.replace(/[$,]/g, '');
-                            obj.netWorthValue = parseFloat(cleanNumber) || 0;
-                        }
-                    });
-                    return obj;
-                });
-                
-                console.log('Loaded data:', sheetData);
-                status.textContent = `Loaded ${sheetData.length} records`;
-                
-                // Hide loading after a delay
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    updateDataList();
-                    create3DVisualization();
-                }, 1000);
-                
-            } catch (error) {
-                console.error('Error loading Google Sheet:', error);
-                status.textContent = 'Error loading data. Using sample data instead.';
-                
-                // Fallback to sample data from CSV
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    useSampleData();
-                }, 2000);
-            }
-        }
-        
-        function useSampleData() {
-            // Convert CSV text to array (you would parse the actual CSV)
-            // For now, we'll create some sample data
-            sheetData = [
-                {
-                    Name: 'Lee Siew Suan',
-                    Photo: 'https://static.kasatria.com/pivot-img/photo/019.jpg',
-                    Age: '25',
-                    Country: 'CN',
-                    Interest: 'Writing',
-                    'Net Worth': '$251,260.80',
-                    netWorthValue: 251260.80
-                },
-                // Add more sample data as needed
-            ];
-            
-            updateDataList();
-            create3DVisualization();
-        }
-        
-        function updateDataList() {
-            const dataList = document.getElementById('dataList');
-            dataList.innerHTML = '';
-            
-            sheetData.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'data-item';
-                div.onclick = () => selectDataItem(index);
-                
-                // Determine color based on net worth
-                const netWorth = item.netWorthValue || 0;
-                let colorClass = 'red';
-                if (netWorth >= 200000) colorClass = 'green';
-                else if (netWorth >= 100000) colorClass = 'orange';
-                
-                div.innerHTML = `
-                    <img src="${item.Photo}" alt="${item.Name}" onerror="this.src='https://via.placeholder.com/50'">
-                    <div><strong>${item.Name}</strong></div>
-                    <div>${item.Age} years • ${item.Country}</div>
-                    <div>${item.Interest}</div>
-                    <div class="net-worth ${colorClass}">${item['Net Worth'] || '$0'}</div>
-                `;
-                
-                dataList.appendChild(div);
-            });
-        }
-        
-        function selectDataItem(index) {
-            // Update selection in 3D view
-            const items = document.querySelectorAll('.data-item');
-            items.forEach(item => item.classList.remove('selected'));
-            items[index].classList.add('selected');
-            
-            // You could also highlight the corresponding 3D element
-            if (objects[index]) {
-                // Add highlight effect to 3D object
-            }
-        }
-        
-        function filterData() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const country = document.getElementById('countryFilter').value;
-            const interest = document.getElementById('interestFilter').value;
-            
-            const items = document.querySelectorAll('.data-item');
-            
-            items.forEach((item, index) => {
-                const data = sheetData[index];
-                if (!data) return;
-                
-                const matchesSearch = data.Name.toLowerCase().includes(searchTerm);
-                const matchesCountry = !country || data.Country === country;
-                const matchesInterest = !interest || data.Interest === interest;
-                
-                item.style.display = (matchesSearch && matchesCountry && matchesInterest) 
-                    ? 'block' 
-                    : 'none';
-            });
-        }
-        
-        function init3DScene() {
-            // Create Three.js scene
-            scene = new THREE.Scene();
-            
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 1000;
-            
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('visualization').appendChild(renderer.domElement);
-            
-            // Lighting
-            const light = new THREE.DirectionalLight(0xffffff, 1);
-            light.position.set(1, 1, 1).normalize();
-            scene.add(light);
-            
-            const ambientLight = new THREE.AmbientLight(0x404040);
-            scene.add(ambientLight);
-            
-            // Handle window resize
-            window.addEventListener('resize', onWindowResize);
-        }
-        
-        function create3DVisualization() {
-            // Clear existing objects
-            objects.forEach(obj => scene.remove(obj));
-            objects = [];
-            
-            if (!sheetData.length) return;
-            
-            // Create 3D objects based on current view
-            switch(currentView) {
-                case 'table':
-                    createTableView();
-                    break;
-                case 'sphere':
-                    createSphereView();
-                    break;
-                case 'helix':
-                    createHelixView();
-                    break;
-                case 'grid':
-                    createGridView();
-                    break;
-            }
-            
-            // Start animation
-            animate();
-        }
-        
-        function createTableView() {
-            // Create 20x10 grid (200 total, but we have 168 data points)
-            const columns = 20;
-            const rows = 10;
-            const spacing = 100;
-            
-            for (let i = 0; i < sheetData.length; i++) {
-                const data = sheetData[i];
-                if (!data) continue;
-                
-                const col = i % columns;
-                const row = Math.floor(i / columns);
-                
-                // Create 3D element
-                const element = create3DElement(data, i);
-                element.position.x = (col - columns/2) * spacing;
-                element.position.y = (rows/2 - row) * spacing;
-                
-                scene.add(element);
-                objects.push(element);
-            }
-        }
-        
-        function create3DElement(data, index) {
-            // Create a simple cube for now
-            // You'll replace this with CSS3D elements like in the periodic table example
-            
-            const geometry = new THREE.BoxGeometry(80, 80, 80);
-            
-            // Determine color based on net worth
-            const netWorth = data.netWorthValue || 0;
-            let color = 0xff4444; // Red
-            if (netWorth >= 200000) color = 0x44ff44; // Green
-            else if (netWorth >= 100000) color = 0xffa500; // Orange
-            
-            const material = new THREE.MeshPhongMaterial({ color: color });
-            const cube = new THREE.Mesh(geometry, material);
-            
-            // Store data reference
-            cube.userData = { index, data };
-            
-            return cube;
-        }
-        
-        function changeView(view) {
-            // Update active button
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            currentView = view;
-            create3DVisualization();
-        }
-        
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // Rotate all objects
-            objects.forEach((obj, i) => {
-                obj.rotation.x += 0.005;
-                obj.rotation.y += 0.01;
-            });
-            
-            renderer.render(scene, camera);
-        }
-    </script>
+    <!-- JavaScript -->
+    <script src="dashboard.js"></script>
 </body>
 </html>
