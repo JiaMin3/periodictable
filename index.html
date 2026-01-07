@@ -1,547 +1,67 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Data Visualization Dashboard - Sign In</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .login-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .logo {
-            margin-bottom: 30px;
-        }
-
-        .logo h1 {
-            color: #333;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .logo p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        .welcome-text {
-            margin-bottom: 30px;
-        }
-
-        .welcome-text h2 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .welcome-text p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .google-signin-btn {
-            background: white;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 25px;
-        }
-
-        .google-signin-btn:hover {
-            border-color: #4285f4;
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .google-signin-btn:active {
-            transform: translateY(0);
-        }
-
-        .google-icon {
-            width: 24px;
-            height: 24px;
-        }
-
-        .user-info {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .user-info.hidden {
-            display: none;
-        }
-
-        .user-info h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .user-detail {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-detail img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-detail span {
-            color: #555;
-            font-size: 14px;
-        }
-
-        .signout-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-            width: 100%;
-        }
-
-        .signout-btn:hover {
-            background: #c82333;
-        }
-
-        .privacy-note {
-            font-size: 12px;
-            color: #777;
-            line-height: 1.5;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .privacy-note a {
-            color: #4285f4;
-            text-decoration: none;
-        }
-
-        .privacy-note a:hover {
-            text-decoration: underline;
-        }
-
-        .dashboard-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .dashboard-btn:hover {
-            background: #5a67d8;
-        }
-
-        .dashboard-btn.hidden {
-            display: none;
-        }
-
-        .language-selector {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #777;
-        }
-
-        select {
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            margin-left: 5px;
-        }
-    </style>
-    <!-- Google Identity Services Library -->
+    <title>📊 DataVis 3D</title>
+    
+    <link rel="stylesheet" href="index.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>📊 DataVis 3D</h1>
-            <p>Interactive 3D Data Visualization Dashboard</p>
-        </div>
+    <div class="glass-container">
+        <main class="login-card">
+            <header class="brand">
+                <div class="icon-box">📊</div>
+                <h1>DataVis 3D</h1>
+                <p>Interactive Data Visualization Dashboard</p>
+            </header>
 
-        <div class="welcome-text">
-            <h2>Welcome Back</h2>
-            <p>Sign in to access your 3D data visualization dashboard with interactive periodic table layouts and
-                real-time data from Google Sheets.</p>
-        </div>
-        <div id="g_id_onload" 
-        data-client_id="152357737588-vmof77luci35bvnvlkm8p14j6a46n5qj.apps.googleusercontent.com" 
-            data-context="signin"
-            data-ux_mode="popup"
-            data-login_uri="YOUR_REDIRECT_URI_IF_NEEDED"
-            data-auto_prompt="false">
-        </div>
-
-        <div class="google-signin-btn" id="googleSignInBtn">
-            <svg class="google-icon" viewBox="0 0 24 24">
-                <path fill="#4285F4"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                <path fill="#34A853"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                <path fill="#FBBC05"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                <path fill="#EA4335"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-            </svg>
-            Sign in with Google
-        </div>
-
-        <!-- User Info Display -->
-        <div id="userInfo" class="user-info hidden">
-            <h3>Signed in as:</h3>
-            <div class="user-detail">
-                <img id="userPicture" src="" alt="Profile Picture">
-                <div>
-                    <strong id="userName"></strong><br>
-                    <span id="userEmail"></span>
+            <section class="auth-section">
+                <div id="loggedOutView" class="view-state">
+                    <h2>Welcome Back</h2>
+                    <p class="description">Sign in to sync with your Google Sheet and explore data in 3D environments.</p>
+                    
+                    <div id="googleSignInBtn" class="g-btn-wrapper"></div>
                 </div>
-            </div>
-            <div class="user-detail">
-                <span>Language: <span id="userLanguage"></span></span>
-            </div>
-        </div>
 
-        <!-- Continue to Dashboard Button -->
-        <button id="dashboardBtn" class="dashboard-btn hidden">
-            🚀 Continue to 3D Dashboard
-        </button>
+                <div id="loggedInView" class="view-state hidden">
+                    <div class="profile-card">
+                        <div class="avatar-wrapper">
+                            <img id="userPicture" src="" alt="Profile">
+                        </div>
+                        <h3 id="userName">User Name</h3>
+                        <p id="userEmail">user@email.com</p>
+                    </div>
 
-        <!-- Sign Out Button -->
-        <button id="signOutBtn" class="signout-btn hidden">
-            Sign Out
-        </button>
+                    <div class="action-group">
+                        <button id="dashboardBtn" class="btn btn-primary">
+                            <span>🚀 Open 3D Dashboard</span>
+                        </button>
+                        <button id="signOutBtn" class="btn btn-outline">
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-        <div class="privacy-note">
-            <p>By signing in, Google will share your name, email address, language preference, and profile picture with
-                DataVis 3D.</p>
-            <p>Before using this app, you can review our <a href="#" id="privacyLink">Privacy Policy</a> and <a href="#"
-                    id="termsLink">Terms of Service</a>.</p>
-        </div>
-
-        <div class="language-selector">
-            Language:
-            <select id="languageSelect">
-                <option value="en">English (United States)</option>
-                <option value="en-GB">English (United Kingdom)</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="ja">日本語</option>
-            </select>
-        </div>
+            <footer class="login-footer">
+                <div class="lang-selector">
+                    <label for="languageSelect">Language:</label>
+                    <select id="languageSelect">
+                        <option value="en">English (US)</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+                <p class="legal">By signing in, you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a>.</p>
+            </footer>
+        </main>
     </div>
 
-    <script>
-        // Configuration - YOU MUST REPLACE THESE WITH YOUR ACTUAL VALUES
-        const GOOGLE_CLIENT_ID = '628077521676-cd3dvujl2ji9uct4br135a1cnruc8l1q.apps.googleusercontent.com';
-        const REDIRECT_URI = window.location.origin; // Or your specific redirect URI
+    <div id="notification-container"></div>
 
-        // DOM Elements
-        const googleSignInBtn = document.getElementById('googleSignInBtn');
-        const userInfo = document.getElementById('userInfo');
-        const userName = document.getElementById('userName');
-        const userEmail = document.getElementById('userEmail');
-        const userPicture = document.getElementById('userPicture');
-        const userLanguage = document.getElementById('userLanguage');
-        const dashboardBtn = document.getElementById('dashboardBtn');
-        const signOutBtn = document.getElementById('signOutBtn');
-        const languageSelect = document.getElementById('languageSelect');
-
-        // Initialize Google Identity Services
-        function initializeGoogleSignIn() {
-            google.accounts.id.initialize({
-                client_id: GOOGLE_CLIENT_ID,
-                callback: handleCredentialResponse,
-                auto_select: false,
-                cancel_on_tap_outside: true,
-                context: 'signin',
-                ux_mode: 'popup',
-                login_uri: REDIRECT_URI
-            });
-
-            // Render the button
-            google.accounts.id.renderButton(
-                googleSignInBtn,
-                {
-                    type: 'standard',
-                    theme: 'outline',
-                    size: 'large',
-                    text: 'signin_with',
-                    shape: 'rectangular',
-                    logo_alignment: 'left',
-                    width: '400'
-                }
-            );
-
-            // Also show One Tap dialog if appropriate
-            google.accounts.id.prompt();
-        }
-
-        // Handle the credential response from Google
-        function handleCredentialResponse(response) {
-            console.log('Google login response:', response);
-
-            // Decode the JWT token to get user info
-            const responsePayload = decodeJWTResponse(response.credential);
-
-            console.log('User info:', responsePayload);
-
-            // Store user data
-            localStorage.setItem('userData', JSON.stringify({
-                name: responsePayload.name,
-                email: responsePayload.email,
-                picture: responsePayload.picture,
-                language: responsePayload.locale || 'en'
-            }));
-
-            // Update UI with user info
-            updateUserInterface(responsePayload);
-
-            // Show success message
-            showMessage('Successfully signed in!', 'success');
-
-            // Here you would typically send the token to your backend for verification
-            // verifyTokenWithBackend(response.credential);
-        }
-
-        // Decode JWT token without library
-        function decodeJWTResponse(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            return JSON.parse(jsonPayload);
-        }
-
-        // Update UI with user information
-        function updateUserInterface(user) {
-            // Show user info section
-            userInfo.classList.remove('hidden');
-            dashboardBtn.classList.remove('hidden');
-            signOutBtn.classList.remove('hidden');
-
-            // Update user details
-            userName.textContent = user.name;
-            userEmail.textContent = user.email;
-            userPicture.src = user.picture;
-            userPicture.alt = `${user.name}'s profile picture`;
-            userLanguage.textContent = user.locale || 'en';
-
-            // Update language selector
-            if (user.locale) {
-                languageSelect.value = user.locale;
-            }
-
-            // Hide Google sign in button
-            googleSignInBtn.style.display = 'none';
-        }
-
-        // Check if user is already logged in
-        function checkExistingLogin() {
-            const userData = localStorage.getItem('userData');
-            if (userData) {
-                const user = JSON.parse(userData);
-                updateUserInterface(user);
-                showMessage('Welcome back!', 'info');
-            }
-        }
-
-        // Handle sign out
-        function handleSignOut() {
-            // Clear local storage
-            localStorage.removeItem('userData');
-
-            // Reset UI
-            userInfo.classList.add('hidden');
-            dashboardBtn.classList.add('hidden');
-            signOutBtn.classList.add('hidden');
-            googleSignInBtn.style.display = 'flex';
-
-            // Revoke Google access
-            google.accounts.id.disableAutoSelect();
-            google.accounts.id.revoke(localStorage.getItem('userEmail'), done => {
-                console.log('Google access revoked');
-            });
-
-            showMessage('Successfully signed out!', 'info');
-        }
-
-        // Navigate to dashboard
-        function goToDashboard() {
-            // Store authentication token or state
-            const userData = localStorage.getItem('userData');
-            if (!userData) {
-                showMessage('Please sign in first!', 'error');
-                return;
-            }
-
-            // Redirect to dashboard page
-            window.location.href = 'dashboard.html'; // Create this page next
-        }
-
-        // Show message to user
-        function showMessage(message, type) {
-            // Create message element
-            const messageEl = document.createElement('div');
-            messageEl.textContent = message;
-            messageEl.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 25px;
-                border-radius: 8px;
-                color: white;
-                font-weight: 500;
-                z-index: 1000;
-                animation: slideIn 0.3s ease;
-                ${type === 'success' ? 'background: #28a745;' :
-                    type === 'error' ? 'background: #dc3545;' :
-                        'background: #17a2b8;'}
-            `;
-
-            document.body.appendChild(messageEl);
-
-            // Remove after 3 seconds
-            setTimeout(() => {
-                messageEl.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(messageEl);
-                }, 300);
-            }, 3000);
-        }
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Event Listeners
-        signOutBtn.addEventListener('click', handleSignOut);
-        dashboardBtn.addEventListener('click', goToDashboard);
-
-        languageSelect.addEventListener('change', (e) => {
-            // Update language preference
-            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-            userData.language = e.target.value;
-            localStorage.setItem('userData', JSON.stringify(userData));
-            userLanguage.textContent = e.target.value;
-        });
-
-        // Privacy and Terms links (placeholder)
-        document.getElementById('privacyLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Privacy Policy page would open here.');
-        });
-
-        document.getElementById('termsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Terms of Service page would open here.');
-        });
-
-        // Initialize when Google library is loaded
-        window.onload = function () {
-            // Load Google library dynamically
-            if (typeof google !== 'undefined') {
-                initializeGoogleSignIn();
-                checkExistingLogin();
-            } else {
-                // Retry after delay
-                setTimeout(() => {
-                    if (typeof google !== 'undefined') {
-                        initializeGoogleSignIn();
-                        checkExistingLogin();
-                    } else {
-                        console.error('Google Identity Services library failed to load');
-                        showMessage('Error loading Google sign-in. Please refresh.', 'error');
-                    }
-                }, 1000);
-            }
-        };
-
-        // Fallback if Google library doesn't load
-        setTimeout(() => {
-            if (typeof google === 'undefined') {
-                console.warn('Google library not loaded, using fallback');
-                googleSignInBtn.innerHTML = `
-                    <svg class="google-icon" viewBox="0 0 24 24">
-                        <!-- Same SVG as above -->
-                    </svg>
-                    Sign in with Google (Click to retry)
-                `;
-                googleSignInBtn.onclick = () => location.reload();
-            }
-        }, 3000);
-    </script>
+    <script src="index.js"></script>
 </body>
-
 </html>
